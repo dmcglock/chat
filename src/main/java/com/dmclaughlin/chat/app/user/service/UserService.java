@@ -11,6 +11,7 @@ import com.dmclaughlin.chat.app.user.exception.UsernameNotUniqueException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,7 @@ public class UserService {
       UserDao user = new UserDao(userDto.getUsername(), userDto.getFirstName(), userDto.getLastName());
       UserDto createdUser = new UserDto(userRepo.save(user));
       return createdUser;
-    } catch(ConstraintViolationException e) {
+    } catch(DataIntegrityViolationException e) {
       throw new UsernameNotUniqueException(userDto.getUsername() + " can't be saved. Username already exists");
     }
   }
