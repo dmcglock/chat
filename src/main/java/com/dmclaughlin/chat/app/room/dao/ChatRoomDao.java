@@ -1,4 +1,4 @@
-package com.dmclaughlin.chat.app.room;
+package com.dmclaughlin.chat.app.room.dao;
 
 import lombok.Data;
 
