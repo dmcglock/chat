@@ -20,4 +20,9 @@ public class ChatRoomDto {
     this.senderUserId = senderId;
     this.recipientUserId = recipientId;
   }
+
+  public ChatRoomDto(ChatRoomDao chatRoomDao) {
+    this.chatRoomId = chatRoomDao.getChatRoomId();
+    this.purpose = chatRoomDao.getPurpose();
+  }
 }

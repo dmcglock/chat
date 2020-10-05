@@ -88,35 +88,46 @@ Response: `{
                "purpose": "No purpose set for this chat room"
            }`
            
-#### GET /anagrams/check
-Endpoint that takes a set of words and returns whether or not they are all anagrams of each other <br/>
-Request: `localhost:3000/anagrams/check?words=tea, ate` <br/>
+#### POST /chat/room/{id}
+Update the purpose for the given chat room <br/>
+
+Request: `localhost:3000/chat/room?senderId=1&recipientId=2` <br/>
 Response: `{
-               "words": [
-                   "tea",
-                   "ate"
-               ],
-               "anagrams": true
-           }`
-#### GET /anagrams/check
-Endpoint to return all anagram groups of size >= *x* <br/>
-Request: `localhost:3000/anagrams/groups?size=3` <br/>
+               "chatRoomId": 3,
+               "senderUserId": null,
+               "recipientUserId": null,
+               "purpose": "The purpose is changed"
+           }`    
+
+## Messages
+#### POST /messenger/send
+Returns a chat room given a sender id and a recipient id <br/>
+Message size must be between 1 and 255 characters <br/>
+Chat Room Id must not be null <br/>
+Sender Id must not be null <br/>
+Recipient Id must not be null <br/>
+
+Request: `localhost:3000/chat/room?senderId=1&recipientId=2` <br/>
+Body: `{
+           "message": "Hey! Hows it going?",
+           "chatRoomId": 3,
+           "senderId": 2,
+           "recipientId": 1
+       }`
+200 Response on success
+400 Response on request body failures
+           
+#### POST /chat/room/{id}
+Update the purpose for the given chat room <br/>
+
+Request: `localhost:3000/chat/room?senderId=1&recipientId=2` <br/>
 Response: `{
-               "adekn": [
-                   "kande",
-                   "knead",
-                   "naked"
-               ],
-               "addeeglnr": [
-                   "gladdener",
-                   "glandered",
-                   "regladden"
-               ]
-            }`
-#### DELETE /anagrams/read
-Endpoint to delete a word *and all of its anagrams <br/>
-Request: `localhost:3000/anagrams/read` <br/>
-Response: 204 No content
+               "chatRoomId": 3,
+               "senderUserId": null,
+               "recipientUserId": null,
+               "purpose": "The purpose is changed"
+           }`                     
+           
 
 
 ## Future
