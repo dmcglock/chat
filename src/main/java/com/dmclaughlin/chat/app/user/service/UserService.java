@@ -1,6 +1,5 @@
 package com.dmclaughlin.chat.app.user.service;
 
-import com.dmclaughlin.chat.app.user.UserController;
 import com.dmclaughlin.chat.app.user.dao.UserChatRoomRepo;
 import com.dmclaughlin.chat.app.user.dao.UserDao;
 import com.dmclaughlin.chat.app.user.dao.UserRepo;
@@ -15,7 +14,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
-import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 

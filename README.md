@@ -113,27 +113,78 @@ Body: `{
            "chatRoomId": 3,
            "senderId": 2,
            "recipientId": 1
-       }`
-200 Response on success
+       }` <br/>
+200 Response on success <br/>
 400 Response on request body failures
            
-#### POST /chat/room/{id}
-Update the purpose for the given chat room <br/>
+#### GET messenger/all
+Get all messages within the last 30 days or by passing through a limit. Default behavior is to grab messages within the last 30 days when limit is not present <br/>
+Optional request parameter limit
+Request: `localhost:3000/messenger/all?limit=1` <br/>
+Response: `[
+               {
+                   "id": 1,
+                   "message": "Ahhh",
+                   "chatRoomId": 13,
+                   "timestamp": 1601939654221,
+                   "senderId": 2,
+                   "recipientId": 1
+               },
+               {
+                   "id": 2,
+                   "message": "Whats up",
+                   "chatRoomId": 13,
+                   "timestamp": 1601939661291,
+                   "senderId": 2,
+                   "recipientId": 1
+               }
+           ]` <br/>
+200 on success <br/>
+204 Response when no messages present
 
-Request: `localhost:3000/chat/room?senderId=1&recipientId=2` <br/>
-Response: `{
-               "chatRoomId": 3,
-               "senderUserId": null,
-               "recipientUserId": null,
-               "purpose": "The purpose is changed"
-           }`                     
+#### GET messenger/{userId}/all
+Get all messages for a user within the last 30 days or by passing through a limit. Default behavior is to grab messages within the last 30 days when limit is not present. Does not include messages sent by the user <br/>
+Optional request parameter limit
+Request: `localhost:3000/messenger/all?limit=1` <br/>
+Response: `[
+               {
+                   "id": 1,
+                   "message": "Whats up",
+                   "chatRoomId": 13,
+                   "timestamp": 1601940124344,
+                   "senderId": 2,
+                   "recipientId": 1
+               }
+           ]` <br/>
+200 on success <br/>           
+204 Response when no messages present                                  
            
 
 
-## Future
-Possible features for the future might include:
-* Allow words endpoint to take in sentences and check if sentences are anagrams
-* Delete all anagrams of size x
+## Future Improvements
+Possible features:
+* Allow users to add each other to their friends list
+  * Pull friends chats first when retrieving chat rooms 
+* Add more user features such as permissions, allowing users to be moderators of a chat room
+* More robust deletion
+  * Delete all content when a user deletes their profile
+
+Technical:
+* Change timestamp of messages to not use system millis
+  * Depending on the data center distribution, system millis might need to be "normalized" across data centers
+* Dockerize the service
+* If actually want a true chat service, would probably need to use sockets
+
+## Design Explanation
+### Flow
+The API makes some assumptions about the flow of the calls from clients. 
+To start, the user would need to be created before we start populating messages with
+an id. Therefore, by the time we start saving messages, we assume the client has validated 
+that the ids are valid. We also assume that the client has created a chat room with the other 
+user at some point before. I decided to make a separate table that held the chat room and 
+user association, in the hopes to be more flexible in the future. Doing so, I was hoping
+that a chat room could hold multiple users. 
+ 
 
 Thanks for your consideration
 

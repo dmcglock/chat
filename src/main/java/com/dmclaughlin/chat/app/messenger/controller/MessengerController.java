@@ -30,7 +30,7 @@ public class MessengerController {
                                               @RequestParam(value = "limit", required = false) Integer limit) {
     List<MessageDao> messages = messageService.getMessagesForUser(userId, limit);
     if(messages == null || messages.isEmpty()) {
-      return ResponseEntity.notFound().build();
+      return ResponseEntity.noContent().build();
     }
     return ResponseEntity.ok(messages);
   }
