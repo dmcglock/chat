@@ -1,29 +1,29 @@
 package com.dmclaughlin.chat.app.messenger.dao;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @Entity
+@AllArgsConstructor
 public class MessageDao {
   @Id
   @GeneratedValue
-  private Long id;
+  private Integer id;
   private String message;
   private Integer chatRoomId;
-  private LocalDate timestamp;
+  private Long timestamp;
   private Integer senderId;
   private Integer recipientId;
 
   public MessageDao(String message, Integer chatRoomId, Integer senderId, Integer recipientId) {
     this.message = message;
     this.chatRoomId = chatRoomId;
-    this.timestamp = LocalDate.now();
+    this.timestamp = System.currentTimeMillis();
     this.senderId = senderId;
     this.recipientId = recipientId;
   }

@@ -1,9 +1,13 @@
 package com.dmclaughlin.chat.app.user.dto;
 
 import com.dmclaughlin.chat.app.user.dao.UserDao;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
+@AllArgsConstructor
 public class UserDto {
   private Integer userId;
   private String username;

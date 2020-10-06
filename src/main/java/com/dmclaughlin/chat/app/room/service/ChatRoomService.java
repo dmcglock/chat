@@ -25,6 +25,13 @@ public class ChatRoomService {
     return findSharedChatRoom(sharedChatRoom, senderUserId, recipientUserId);
   }
 
+  public ChatRoomDto updateRoomPurpose(Integer chatRoomId, String purpose) {
+    ChatRoomDao currentChatRoom = new ChatRoomDao(chatRoomId, purpose);
+    chatRoomRepo.save(currentChatRoom);
+
+    return new ChatRoomDto(currentChatRoom);
+  }
+
   private ChatRoomDto createChatRoom(Integer senderId, Integer recipientId) {
     ChatRoomDao createdChatRoom = chatRoomRepo.save(new ChatRoomDao());
     UserChatRoomDao senderUserChatRoom = UserChatRoomDao

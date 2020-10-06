@@ -1,6 +1,5 @@
-package com.dmclaughlin.chat.app.user;
+package com.dmclaughlin.chat.app.user.controller;
 
-import com.dmclaughlin.chat.app.user.dao.UserDao;
 import com.dmclaughlin.chat.app.user.dto.CreateUserDto;
 import com.dmclaughlin.chat.app.user.dto.UserDto;
 import com.dmclaughlin.chat.app.user.exception.UserNotFoundException;

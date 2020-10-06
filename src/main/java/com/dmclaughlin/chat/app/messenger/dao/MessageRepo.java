@@ -4,21 +4,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-
+import javax.persistence.NamedNativeQuery;
 import java.util.List;
 
 @Repository
 public interface MessageRepo extends CrudRepository<MessageDao, Integer> {
 
-  @Query("select message from MessageDao where recipientId = :userId and timestamp > :lastThirtyDays")
-  List<MessageDao> getLastThirtyDaysForUser(Integer userId, String lastThirtyDays);
+  List<MessageDao> findAllByRecipientIdAndTimestampBetween(Integer recipientId, Long timestampStart, Long timestampEnd);
 
-  @Query("select message from MessageDao where timestamp > :lastThirtyDays")
-  List<MessageDao> getAllMessagesWithinLastThirtyDays(String lastThirtyDays);
+  List<MessageDao> findAllByRecipientIdOrderByTimestampDesc(Integer recipientId);
 
-  @Query(value = "select * from MessageDao order by id desc LIMIT :limit", nativeQuery = true)
-  List<MessageDao> getAllMessages();
+  List<MessageDao> findAllByTimestampBetween(Long timestampStart, Long timestampEnd);
 
-  @Query(value = "select * from MessageDao where recipientId = :userId order by id desc LIMIT :limit", nativeQuery = true)
+  @Query(value = "select message from MessageDao where recipientId = :userId order by id desc LIMIT :limit", nativeQuery = true)
   List<MessageDao> getAllMessagesForUser(Integer userId, Integer limit);
 }

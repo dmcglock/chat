@@ -24,6 +24,8 @@ public class ChatRoomController {
   @PostMapping("/room/{chatRoomId}")
   public ResponseEntity updateRoomPurpose(@PathVariable("chatRoomId") Integer chatRoomId,
                                           @RequestParam(value = "purpose", required = true) String purpose) {
+    ChatRoomDto updatedRoom = chatRoomService.updateRoomPurpose(chatRoomId, purpose);
 
+    return ResponseEntity.ok(updatedRoom);
   }
 }
