@@ -173,7 +173,8 @@ Technical:
 * Change timestamp of messages to not use system millis
   * Depending on the data center distribution, system millis might need to be "normalized" across data centers
 * Dockerize the service
-* If actually want a true chat service, would probably need to use sockets
+* If we want a real time chat, would probably need to use sockets
+* Finish tests
 
 ## Design Explanation
 ### Flow
